@@ -3,10 +3,10 @@ import CurrencyForm from './CurrencyForm';
 import userEvent from '@testing-library/user-event';
 
 const testCases = [
-  { amount: '100', from: 'PLN', to: 'USD' },
-  { amount: '20', from: 'USD', to: 'PLN' },
-  { amount: '200', from: 'PLN', to: 'USD' },
-  { amount: '345', from: 'USD', to: 'PLN' },
+  { amount: 100, from: 'PLN', to: 'USD' },
+  { amount: 20, from: 'USD', to: 'PLN' },
+  { amount: 200, from: 'PLN', to: 'USD' },
+  { amount: 345, from: 'USD', to: 'PLN' },
 ];
 
 
@@ -31,9 +31,9 @@ for (const testObj of testCases) {
       const toField = screen.getByTestId('to-currency');
 
       // set test values to fields
-      userEvent.type(amountField, '100');
-      userEvent.selectOptions(fromField, 'PLN');
-      userEvent.selectOptions(toField, 'USD');
+      userEvent.type(amountField, testObj.amount);
+      userEvent.selectOptions(fromField, testObj.from);
+      userEvent.selectOptions(toField, testObj.to);
 
 
       // simulate user click on "convert" button
@@ -41,7 +41,7 @@ for (const testObj of testCases) {
 
       // check if action callback was called once and with proper argument
       expect(action).toHaveBeenCalledTimes(1);
-      expect(action).toHaveBeenCalledWith({ amount: 100, from: 'PLN', to: 'USD' });
+      expect(action).toHaveBeenCalledWith({ amount: testObj.amount, from: testObj.from, to: testObj });
 
     });
   });
